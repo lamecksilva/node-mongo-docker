@@ -2,12 +2,14 @@ FROM node:11-alpine
 
 WORKDIR /usr/src/app
 
+COPY . .
+
 COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+RUN npm install -g nodemon
 
 EXPOSE 8000
 
-CMD node index.js
+CMD npm run dev

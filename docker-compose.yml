@@ -1,18 +1,15 @@
-version: '3'
+version: "3"
 
-services: 
+services:
   app:
     image: "node:11-alpine"
-    volumes:
-      - "./:/app"
-    working_dir: "/app"
+    build: "./"
     depends_on:
       - mongo
     environment:
       NODE_ENV: development
     ports:
       - "8000:8000"
-    command: "npm run dev"
 
   mongo:
     image: mongo
