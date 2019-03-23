@@ -1,23 +1,25 @@
-version: "3"
+version: '3'
 
 services:
-  app:
-    image: "node:11-alpine"
-    build: "./"
-    depends_on:
-      - mongo
+  server:
+    container_name: NODEJS_SERVER
+    build: '.'
+    volumes:
+      - ./:/node-app
+      - ./node_modules:/node-app/node_modules
     environment:
       NODE_ENV: development
+    depends_on:
+      - db
+    links:
+      - db
     ports:
-      - "8000:8000"
-<<<<<<< HEAD
-    command: "npm start"
-=======
->>>>>>> 80ce6f230530205a8db2989e4a63edb68b134009
+      - '9000:9000'
 
-  mongo:
-    image: mongo
+  db:
+    image: 'mongo'
+    container_name: MONGODB
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
-      - "./data/db:/data/db"
+      - ./data/db:/data/db
